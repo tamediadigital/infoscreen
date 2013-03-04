@@ -1,0 +1,95 @@
+* {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	margin: 0px;
+	padding: 0px;
+    font-family: Helvetica;
+    font-weight:bold;
+    color: #000;
+}
+body {
+    background: transparent url(../images/background.png) repeat-x;
+	font-family: "Lucida Sans", "Lucida Grande", sans-serif;
+	color: #444;
+	text-align: center;
+}
+#logo {
+	position: absolute;
+	z-index: 12;
+	left: 10px;
+	top: 10px;	
+}
+#subtitle {
+	position: absolute;
+    font-weight: 400;
+    font-size: 34px; 
+	float: left;
+    color: #BBB;
+	z-index: 21;
+	left: 190px;
+	top: 10px;
+}
+#title {
+	position: absolute;
+    font-weight: 800;
+    font-size: 18px; 
+	float: left;
+    color: #FFF;
+	z-index: 21;
+	left: 10px;
+	top: 58px;	
+}
+#time {
+	position: absolute;
+    font-size:52px; 
+    font-weight:bold;
+    float: left;
+    z-index: 21;
+    top: 0px;
+}
+#time_ {
+	position: absolute;
+    font-size:52px; 
+    float: left;
+    z-index: 21;
+    top: -2px;
+}
+#day {
+	position: absolute;
+    font-size:22px; 
+    color: #BBB;
+    float: left;
+    z-index: 21;
+    top: 8px;
+}
+#date {
+	position: absolute;
+    font-size:22px; 
+    color: #BBB;
+    float: left;
+    z-index: 21;
+    top: 28px;
+}
+
+#nav-left {
+	position: absolute;
+	z-index: 11;
+	top: 54px;
+	height:30px;
+}
+
+#nav-middle {
+	position: absolute;
+	z-index: 11;
+	top: 54px;
+	height:30px;
+}
+
+#nav-right {
+	position: absolute;
+	z-index: 11;
+	top: 54px;
+	height:30px;
+}
+

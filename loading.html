@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Infoscreen Loading</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<style type="text/css" media="screen">
+    body {
+      font-size: 12px;
+      font-family: Verdana, Arial, Helvetica, SunSans-Regular, Sans-Serif;
+      color:#564b47;  
+      padding:0px;
+      margin:0px;
+    }
+    #contentDiv { 	
+      position:absolute;
+      width:640px;
+      height:480px; 
+      margin:-240px 0px 0px -320px;
+      top: 50%; 
+      left: 50%;
+      text-align: left;
+      padding: 0px;
+      border: 1px dotted #000000;
+      overflow: auto;
+    }
+    #loadingImg {
+        position:absolute;
+        left: 268px;
+        top: 188px; 
+    }
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    function resizeFrame() {
+        var h = window.innerHeight-40;
+        var w = window.innerWidth-40;
+        $("#contentDiv").css("width", w);
+        $("#contentDiv").css("height", h);
+        $("#contentDiv").css("margin", "-"+(h/2)+"px 0px 0px -"+(w/2)+"px");
+        $("#loadingImg").css("left", (w-104)/2);
+        $("#loadingImg").css("top", (h-104)/2);
+    }
+    $(document).ready(function(){
+        resizeFrame();
+    });
+    $(window).resize(function() {
+        resizeFrame();
+    });    
+</script>
+</head> 
+<body>
+<div id="contentDiv">
+    <img src="images/loading.gif" alt="loading" id="loadingImg"/>
+</div>
+</body>
+</html>
