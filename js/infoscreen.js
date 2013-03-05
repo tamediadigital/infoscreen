@@ -7,6 +7,8 @@ var slide = -1;
 
 var loopTimerID = null;
 
+setInterval(showActivity, 5000);  
+
 function hasParameterByName(name, href) {
     if (href) {
         return (href.search(name) != -1);
@@ -74,4 +76,8 @@ function setLoopTimer(time) {
 	
 	// initiallize new timer
 	loopTimerID = setTimeout( "updateSlice(1)", time*1000);
+}
+
+function showActivity() {
+    $("#title").text($("#title").text() + '.');
 }

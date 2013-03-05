@@ -32,6 +32,7 @@ body {
 }
 #title {
 	position: absolute;
+	font-family: 'Abel', sans-serif;
     font-weight: 800;
     font-size: 18px; 
 	float: left;
