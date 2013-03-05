@@ -4,7 +4,7 @@ Local.ch Infoscreen v2
 New version of the Local Infoscreen.
 
 - simplified infoscreen code (no preloading,..)
-- loading content configuration from a google spreadsheet: the key can/must be provided as a parameter (see below for more instructions)
+- loading content configuration from a google spreadsheet: the key can/must be provided as a parameter, thanks to Philipp Keller for this cool idea (see below for more instructions)
 
 ### Content configuration ###
 
