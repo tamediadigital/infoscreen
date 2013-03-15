@@ -20,13 +20,15 @@ function initializeContent() {
         var len = data.feed.entry.length;
         for (i = 0; i < len; i++) {
             var e = data.feed.entry[i];
-            var map = new Object();
             var fieldname = e['gsx$name']['$t'];
-            if (fieldname.)
-            map[k_name] = e['gsx$name']['$t'];
-            map[k_link] = e['gsx$contenturl']['$t'];
-            map[k_time] = e['gsx$displaytime']['$t'];
-            content.push(map);            
+            // if fieldname starts with a hash we ignore the row (commented out)
+            if (!fieldname.startsWith('#')) {
+                var map = new Object();
+                map[k_name] = e['gsx$name']['$t'];
+                map[k_link] = e['gsx$contenturl']['$t'];
+                map[k_time] = e['gsx$displaytime']['$t'];
+                content.push(map);
+            }
         }
         updateSlice(1);
     }).error(function(message) {
