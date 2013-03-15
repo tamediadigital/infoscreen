@@ -32,3 +32,14 @@ if (typeof String.prototype.getParameterByName != 'function') {
         return decodeURIComponent(results[1].replace(/\+/g, " "));
   };
 }
+
+///////////////////////////////////////////////////////////////////////////////////////
+if (typeof String.prototype.parseBoolean != 'function') {
+    String.prototype.parseBoolean = function (){
+    	switch(this.toLowerCase()){
+    		case "true": case "yes": case "1": return true;
+    		case "false": case "no": case "0": case null: return false;
+    		default: return Boolean(this);
+    	}
+	};
+}

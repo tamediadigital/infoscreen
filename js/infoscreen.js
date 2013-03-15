@@ -1,7 +1,7 @@
 // config
 var config = {
-     showNavigation: 0,
-     showTime: 1,
+     showNavigation: false,
+     showTime: true,
 };
 
 // content
@@ -27,8 +27,17 @@ function initializeContent() {
     jQuery.getJSON(url).success(function(data) {
         var len = data.feed.entry.length;
         for (i = 0; i < len; i++) {
-            // todo
+            var e = data.feed.entry[i];
+            var property = e['gsx$property']['$t'];
+            if (!property.startsWith('#')) {
+                var value = e['gsx$value']['$t'];
+                if (config.hasOwnProperty(property)) {
+                    console.info(property + ':' + value);
+                    config[property] = value;
+                }
+            }
         }
+        applyConfig();
     }).error(function(message) {
         console.error('error' + message);
     });
@@ -53,6 +62,14 @@ function initializeContent() {
     }).error(function(message) {
         console.error('error' + message);
     });
+}
+
+function applyConfig() {
+    if (!config.showNavigation.parseBoolean()) {
+        console.info("Config: disable navigation ..");
+        $("#nav-right").css("visibility", "hidden");
+        $("#nav-left").css("visibility", "hidden");
+    }
 }
 
 function updateSlice(step) {
