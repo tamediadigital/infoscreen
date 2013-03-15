@@ -1,3 +1,10 @@
+// config
+var config = {
+     showNavigation: 0,
+     showTime: 1,
+};
+
+// content
 var content_key = '0AnrtptTR3KifdG5OVXFxWl9mVHAxYVoybXBTcXU3elE';
 var content = [];
 var k_name = 'name';
@@ -5,8 +12,8 @@ var k_link = 'link';
 var k_time = 'time';
 var slide = -1;
 
+// timer
 var loopTimerID = null;
-
 setInterval(showActivity, 5000);  
 
 function initializeContent() {
@@ -15,7 +22,19 @@ function initializeContent() {
         content_key = ref.getParameterByName('key');
     }
     
-    var url = 'https://spreadsheets.google.com/feeds/list/' + content_key + '/od6/public/values?alt=json-in-script&callback=?';
+    // load config
+    url = 'https://spreadsheets.google.com/feeds/list/' + content_key + '/od7/public/values?alt=json-in-script&callback=?';
+    jQuery.getJSON(url).success(function(data) {
+        var len = data.feed.entry.length;
+        for (i = 0; i < len; i++) {
+            // todo
+        }
+    }).error(function(message) {
+        console.error('error' + message);
+    });
+    
+    // load content
+    url = 'https://spreadsheets.google.com/feeds/list/' + content_key + '/od6/public/values?alt=json-in-script&callback=?';
     jQuery.getJSON(url).success(function(data) {
         var len = data.feed.entry.length;
         for (i = 0; i < len; i++) {

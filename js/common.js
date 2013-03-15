@@ -18,14 +18,6 @@ if (typeof String.prototype.hasParameterByName != 'function') {
       return (this.search(name) != -1);
   };
 }
-// 
-// 
-// function hasParameterByName(name, href) {
-//     if (href) {
-//         return (href.search(name) != -1);
-//     }
-//     return false;
-// }
 
 ///////////////////////////////////////////////////////////////////////////////////////
 if (typeof String.prototype.getParameterByName != 'function') {
@@ -40,15 +32,3 @@ if (typeof String.prototype.getParameterByName != 'function') {
         return decodeURIComponent(results[1].replace(/\+/g, " "));
   };
 }
-// 
-// function getParameterByName(name, href) {
-//   name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-//   var regexS = "[\\?&]"+name+"=([^&#]*)";
-//   var regex = new RegExp( regexS );
-//   var results = regex.exec( href );
-//   if( results == null )
-//     return "";
-//   else
-//     return decodeURIComponent(results[1].replace(/\+/g, " "));
-// }
-// 
