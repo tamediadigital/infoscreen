@@ -9,27 +9,10 @@ var loopTimerID = null;
 
 setInterval(showActivity, 5000);  
 
-function hasParameterByName(name, href) {
-    if (href) {
-        return (href.search(name) != -1);
-    }
-    return false;
-}
-
-function getParameterByName(name, href) {
-  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-  var regexS = "[\\?&]"+name+"=([^&#]*)";
-  var regex = new RegExp( regexS );
-  var results = regex.exec( href );
-  if( results == null )
-    return "";
-  else
-    return decodeURIComponent(results[1].replace(/\+/g, " "));
-}
-
 function initializeContent() {
-    if (true == hasParameterByName('key', parent.location.href)) {
-        content_key = getParameterByName('key', parent.location.href);
+    var ref = parent.location.href;
+    if (true == ref.hasParameterByName('key')) {
+        content_key = ref.getParameterByName('key');
     }
     
     var url = 'https://spreadsheets.google.com/feeds/list/' + content_key + '/od6/public/values?alt=json-in-script&callback=?';
@@ -38,6 +21,8 @@ function initializeContent() {
         for (i = 0; i < len; i++) {
             var e = data.feed.entry[i];
             var map = new Object();
+            var fieldname = e['gsx$name']['$t'];
+            if (fieldname.)
             map[k_name] = e['gsx$name']['$t'];
             map[k_link] = e['gsx$contenturl']['$t'];
             map[k_time] = e['gsx$displaytime']['$t'];
@@ -63,7 +48,7 @@ function updateSlice(step) {
     }
 }
 
-function setLoopTimer(time) {    
+function setLoopTimer(time) {
     // clear previous timer
 	if (loopTimerID != null) {
 		clearTimeout(loopTimerID);
