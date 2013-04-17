@@ -1,5 +1,6 @@
 // config
 var config = {
+     title: 'Information',
      showNavigation: false,
      showTime: true,
 };
@@ -69,6 +70,10 @@ function applyConfig() {
         console.info("Config: disable navigation ..");
         $("#nav-right").css("visibility", "hidden");
         $("#nav-left").css("visibility", "hidden");
+    }
+    
+    if (config.title != undefined) {
+        $("#subtitle").text(config.title);
     }
 }
 
