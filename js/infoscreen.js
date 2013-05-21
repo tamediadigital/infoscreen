@@ -6,7 +6,8 @@ var config = {
 };
 
 // content
-var content_key = '0AnrtptTR3KifdG5OVXFxWl9mVHAxYVoybXBTcXU3elE';
+//var content_key = '0AnrtptTR3KifdG5OVXFxWl9mVHAxYVoybXBTcXU3elE';
+var content_key = '0Av0G-GmOlMZ6dEZaS2JtMTBPOWFtX1VXNnA1R2FCa3c';
 var content = [];
 var k_name = 'name';
 var k_link = 'link';
@@ -39,6 +40,10 @@ function initializeContent() {
             }
         }
         applyConfig();
+        var distance = 900;
+        TweenLite.set($('#body'), {perspective: distance});
+        TweenLite.set($('#header'), {perspective: distance});
+        CSSPlugin.defaultTransformPerspective = distance;
     }).error(function(message) {
         console.error('error' + message);
     });
@@ -81,11 +86,21 @@ function updateSlice(step) {
     if (content.length != 0) {
         slide = (slide + content.length + step) % content.length;
         // show title
+        console.log(slide);
         $("#title").text('['+ (slide+1) + '/' + content.length + '] ' + content[slide][k_name]);
         // show content
-        parent.contentFrame.location.href = content[slide][k_link];
+        $('#contentFrame').attr('src', content[slide][k_link]);
+        TweenLite.to($('#contentFrame'), 2, {
+            transformOrigin:"50& 50%", 
+            rotationY:-360,
+            onComplete: function(){
+                TweenLite.to($('#contentFrame'), 0, {transformOrigin:"50% 50%", rotationY:-0});
+                console.log('done');
+            }
+        });        
         // set loop timer
         setLoopTimer(content[slide][k_time]);
+        
    } else {
         alert('No content available.');
     }

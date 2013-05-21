@@ -8,11 +8,19 @@
     font-weight:bold;
     color: #000;
 }
+html{
+  min-height: 100%;
+}
 body {
-    background: transparent url(../images/background.png) repeat-x;
+  background: transparent url(../images/background.png) repeat-x;
 	font-family: "Lucida Sans", "Lucida Grande", sans-serif;
 	color: #444;
 	text-align: center;
+  min-height: 100%;
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  -webkit-transform-style: preserve-3d;
 }
 #logo {
 	position: absolute;
@@ -93,4 +101,17 @@ body {
 	top: 54px;
 	height:30px;
 }
-
+#contentFrame{
+  width: 100%;
+  top: 85px;
+  height: 300px;
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  border: none;
+  -webkit-transform: translateZ(1px);
+}
+#header{
+  z-index: 100;
+  -webkit-transform: translateZ(-1px);
+}

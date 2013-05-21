@@ -7,10 +7,98 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <title>InfoScreen</title>
+
+    <link rel="shortcut icon" href="favicon.gif" type="image/gif" /> 
+    <link rel="icon" href="favicon.gif" type="image/gif">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/infoscreen.css" />
+    <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!--CDN link for the latest TweenMax-->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 </head>
-<frameset rows="84px,*" FRAMEBORDER=NO FRAMESPACING=0 BORDER=0 id="FrameSetMain">
+<body>
+    <div id="header">
+        <div id="logo">
+            <img src="images/logo.gif" height="35"/>
+        </div>            
+        <div id="title">Loading contents from google spreadsheet..</div>
+        <div id="time">14 37</div>            
+        <div id="time_">:</div>            
+        <div id="day">FRIDAY</div>            
+        <div id="date">31 / 1</div>            
+        <div id="subtitle">Information</div>
+        <div id="nav-left"><img src="images/navleft.png" alt="Nav Left" class="buttonleft"/></div>  
+        <div id="nav-right"><img src="images/navright.png" alt="Nav Right" class="buttonright"/></div>
+    </div>
+    <iframe id="contentFrame"></iframe>
+
+  <script>
+    $(document).ready(function(){
+        initializeContent();
+        resizeFrame();
+
+        // navigation
+        $(".buttonleft").hover(function() {
+            $(this).attr("src","images/navleft_h.png");
+        }, function() {
+            $(this).attr("src","images/navleft.png");
+        });
+        $(".buttonright").hover(function() {
+                $(this).attr("src","images/navright_h.png");
+            }, function() {
+                $(this).attr("src","images/navright.png");
+        });
+
+        $(document).keydown(function(e) {
+            if (!e) {
+                e = window.event;
+            }
+            if (e.keyCode == 65 || e.keyCode == 37) { // A or left 
+                updateSlice(-1);
+            } else if (e.keyCode == 68 || e.keyCode == 39) { // D or right 
+                updateSlice(1);
+            }
+        });
+    });
+    
+    $(window).resize(function() {
+        resizeFrame();
+    });    
+    
+    function resizeFrame() {
+        var w = window.innerWidth-100;
+        var h = window.innerWidth;
+        $("#time").css("left", w-150)
+        $("#time_").css("left", w-97)
+        $("#day").css("left", w-5)
+        $("#date").css("left", w-5)
+
+        // navigation
+        $("#nav-right").css("left", w); w=w-70;
+        $("#nav-left").css("left", w);
+
+        $('#contentFrame').css({
+          height: $(window).height() - 81,
+          width: $(window).width() - 85
+        });
+    }
+
+    $("#nav-left").click(function () { 
+        updateSlice(-1);  
+    });
+    $("#nav-right").click(function () { 
+        updateSlice(1);  
+    });
+  </script>
+  <script src='js/common.js'></script>
+  <script src='js/clock.js'></script>
+  <script src='js/infoscreen.js'></script>
+
+</body>
+<!-- <frameset rows="84px,*" FRAMEBORDER=NO FRAMESPACING=0 BORDER=0 id="FrameSetMain">
 		<frame name="header" src="header.html" noresize="noresize" scrolling="no"/>
-    <frame name="contentFrame" src="loading.html"/>
+    <frame id="contentFrame" name="contentFrame" src="loading.html"/>
     <noframes>no frame support!</noframes>
 </frameset>
-</html>
+ -->
+ </html>
