@@ -3,16 +3,12 @@ div, ul, img, iframe {
 	padding: 0;
 	margin: 0px;
 	padding: 0px;
-  font-family: Helvetica;
-  font-weight:bold;
-  color: #000;
 }
 html{
   min-height: 100%;
 }
 body {
-  background: transparent url(../images/background.png) repeat-x;
-	font-family: "Lucida Sans", "Lucida Grande", sans-serif;
+  font-family: "Helvetica";
 	color: #444;
   min-height: 100%;
   overflow: hidden;
@@ -22,8 +18,8 @@ body {
 }
 #contentFrame{
   position: absolute;
-  top: 85px;
-  border: 1px solid #444;
+  top: 80px;
+  border: none;
 }
 #contentFrame iframe{
   overflow: hidden;
@@ -36,75 +32,82 @@ body {
 #header{
   z-index: 100;
 }
+#header .title {
+  font-size: 46px; 
+  font-weight: 200;
+  padding: 4px 0 0 8px;
+  float: left;
+  color: #ddd;
+}
 #logo {
   float: left;
+  padding: 3px;
 }
-#subtitle {
-  font-weight: 400;
-  font-size: 34px; 
-	float: left;
-  margin-left: 10px;
-  color: #BBB;
+#logo img{
+  height: 45px;
 }
-#title {
+#bar{
+  /* background-color: #008cca; */
+  background-color: #eee;
+  height: 30px;
   position: absolute;
-  font-weight: 400;
-  font-size: 18px; 
+  top: 51px;
+  width: 100%;
+}
+#bar .nav{
+  float: right;
+}
+#bar .page{
+  font-weight: bold;
+  font-size: 20px; 
 	float: left;
-  color: #ddd;
-	left: 10px;
-	top: 48px;	
+  padding: 6px 6px;
+  letter-spacing: 3px;
+  color: #666;
 }
-#header{
-  text-shadow: 3px 3px 3px rgba(150, 150, 150, 0.2);
+#bar .nav{
+  margin: 5px 10px;
 }
-#time {
+#bar button{
+  height: 22px;
+  line-height: 12px;
+  font-size: 12px;
+  padding: 3px 8px;
+  margin-left: 2px;
+}
+#datetime{
   position: absolute;
-  font-size:53px; 
-  top: -3px;
-  right: 86px;
-}
-#time .sep{
-  position: relative;
-  color: #555;
-  font-size: 40px;
-  display: inline-block;
-  padding: 0 1px 0 0;
-  top: -6px;
-}
-#day, #date{
-  color: #888;
   right: 10px;
-}
-#day {
-  position: absolute;
-  font-size:25px; 
   top: 4px;
 }
-#date {
-	position: absolute;
-  font-size:21px; 
-  top: 27px;
+#datetime .time {
+  color: #ddd;
+  font-size:53px; 
+  float: left;
+  margin-top: -4px;
+  margin-right: 8px;
+  text-align: right;
+}
+#datetime .time .sep{
+  font-size: 32px;
+  position: relative;
+  display: inline-block;
+  padding: 0 4px 0 1px;
+  top: -7px;
+}
+#datetime .calendar{
+  float: right;
+  margin-top: 1px;
+}
+.calendar .day, .calendar .date{
+  color: #ddd;
+  right: 10px;
+}
+.calendar .day {
+  font-size: 25px; 
+  height: 24px;
+}
+.calendar .date {
+  font-size:20px; 
 }
 
-#nav-left {
-	position: absolute;
-	z-index: 11;
-	top: 54px;
-  right: 20px;
-	height:30px;
-}
-
-#nav-middle {
-	position: absolute;
-	z-index: 11;
-	top: 54px;
-	height:30px;
-}
-
-#nav-right {
-	position: absolute;
-	z-index: 11;
-	top: 54px;
-	height:30px;
-}

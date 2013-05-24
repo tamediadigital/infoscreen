@@ -10,6 +10,7 @@
 
     <link rel="shortcut icon" href="favicon.gif" type="image/gif" /> 
     <link rel="icon" href="favicon.gif" type="image/gif">
+    <link rel="stylesheet" href="http://self-service.beta.local.ch/assets/local_skeleton/application.css" type="text/css">
     <link rel="stylesheet" type="text/css" media="screen" href="css/infoscreen.css" />
     <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -21,15 +22,23 @@
         <div id="logo">
             <img src="images/logo.gif" height="35"/>
         </div>            
-        <div id="title">Loading contents from google spreadsheet..</div>
-        <div id="time">
-            <span class="hours">00</span><span class="sep">:</span><span class="mins">00</span>
+        <div class="title">Information</div>
+        <div id="datetime">
+            <div class="time">
+                <span class="hours">00</span><span class="sep">:</span><span class="mins">00</span>
+            </div>
+            <div class="calendar">
+                <div class="day">FRI</div>
+                <div class="date">31 / 12</div>
+            </div>
         </div>
-        <div id="day">FRI</div>            
-        <div id="date">31 / 12</div>            
-        <div id="subtitle">Information</div>
-        <div id="nav-left"><img src="images/navleft.png" alt="Nav Left" class="buttonleft"/></div>  
-        <div id="nav-right"><img src="images/navright.png" alt="Nav Right" class="buttonright"/></div>
+        <div id="bar">
+            <div class="page">0/0</div>
+            <div class="nav">
+                <button class="left" type="submit"><i class="icon-arrow-left"></i>&nbsp;Prev</button>
+                <button class="right" type="submit">Next&nbsp;<i class="icon-arrow-right"></i></button>
+            </div>
+        </div>
     </div>
     <div id="contentFrame">
         <iframe id="content"></iframe>

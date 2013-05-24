@@ -39,7 +39,6 @@ function initializeContent() {
                 }
             }
         }
-        applyConfig();
         var distance = 900;
         TweenLite.set($('#body'), {perspective: distance});
         CSSPlugin.defaultTransformPerspective = distance;
@@ -69,24 +68,13 @@ function initializeContent() {
     });
 }
 
-function applyConfig() {
-    if (!config.showNavigation.parseBoolean()) {
-        console.info("Config: disable navigation ..");
-        $("#nav-right").css("visibility", "hidden");
-        $("#nav-left").css("visibility", "hidden");
-    }
-    
-    if (config.title != undefined) {
-        $("#subtitle").text(config.title);
-    }
-}
-
 function updateSlice(step) {
     if (content.length != 0) {
         slide = (slide + content.length + step) % content.length;
         // show title
         console.log(slide);
-        $("#title").text('['+ (slide+1) + '/' + content.length + '] ' + content[slide][k_name]);
+        $("#bar .page").text((slide+1) + '/' + content.length);
+        $("#title").text(content[slide][k_name]);
         // show content
         $('#contentFrame iframe').attr('src', content[slide][k_link]);
         TweenLite.to($('#contentFrame'), 2, {
@@ -121,17 +109,17 @@ function setLoopTimer(time) {
 }
 
 function showActivity() {
-    $("#title").text($("#title").text() + '.');
+
 }
 
 
 
 function initEventHandlers(){
   // navigation
-  $("#nav-left").click(function () { 
+  $("#bar .nav .left").click(function () { 
       updateSlice(-1);  
   });
-  $("#nav-right").click(function () { 
+  $("#bar .nav .right").click(function () { 
       updateSlice(1);  
   });
 
@@ -153,15 +141,16 @@ function resizeFrame() {
   var w = window.innerWidth-100;
   var h = window.innerWidth;
   $('#contentFrame iframe').css({
-    height: $(window).height() - 120,
-    width: $(window).width() - 5
+    height: $(window).height() - 86,
+    width: $(window).width()
   });
 }
 
     $(document).ready(function(){
+        updateClock();
         initializeContent();
         resizeFrame();
-        initEventHandlers()
+        initEventHandlers();
     });
     
 

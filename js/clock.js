@@ -9,15 +9,15 @@ function updateClock() {
 
     // time
     var mins = (m < 10 ? '0' : '') + m;
-    $("#time .mins").text(mins);
+    $("#datetime .mins").text(mins);
     var hours = (h < 10 ? '0' : '') + h;
-    $("#time .hours").text(hours);
+    $("#datetime .hours").text(hours);
 
     // date
-    $("#day").text(day_names[now.getDay()]);
-    $("#date").text(now.getDate() + " / " + (now.getMonth() + 1));
+    $("#datetime .day").text(day_names[now.getDay()]);
+    $("#datetime .date").text(now.getDate() + " / " + (now.getMonth() + 1));
 
-    var $sep = $('#time .sep');
+    var $sep = $('#datetime .sep');
     var op = parseInt($sep.css('opacity'));
     if (op === 0) {
       $sep.animate({"opacity":1}, 500);
