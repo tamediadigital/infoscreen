@@ -1,12 +1,11 @@
-* {
+div, ul, img, iframe {
 	margin: 0;
 	padding: 0;
-	position: relative;
 	margin: 0px;
 	padding: 0px;
-    font-family: Helvetica;
-    font-weight:bold;
-    color: #000;
+  font-family: Helvetica;
+  font-weight:bold;
+  color: #000;
 }
 html{
   min-height: 100%;
@@ -15,76 +14,84 @@ body {
   background: transparent url(../images/background.png) repeat-x;
 	font-family: "Lucida Sans", "Lucida Grande", sans-serif;
 	color: #444;
-	text-align: center;
   min-height: 100%;
   overflow: hidden;
   overflow-x: hidden;
   overflow-y: hidden;
   -webkit-transform-style: preserve-3d;
 }
+#contentFrame{
+  position: absolute;
+  top: 85px;
+  border: 1px solid #444;
+}
+#contentFrame iframe{
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  border: none;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translateZ(-1px);
+}
+#header{
+  z-index: 100;
+}
 #logo {
-	position: absolute;
-	z-index: 12;
-	left: 10px;
-	top: 10px;	
+  float: left;
 }
 #subtitle {
-	position: absolute;
-    font-weight: 400;
-    font-size: 34px; 
+  font-weight: 400;
+  font-size: 34px; 
 	float: left;
-    color: #BBB;
-	z-index: 21;
-	left: 190px;
-	top: 10px;
+  margin-left: 10px;
+  color: #BBB;
 }
 #title {
-	position: absolute;
-	font-family: 'Abel', sans-serif;
-    font-weight: 800;
-    font-size: 18px; 
+  position: absolute;
+  font-weight: 400;
+  font-size: 18px; 
 	float: left;
-    color: #FFF;
-	z-index: 21;
+  color: #ddd;
 	left: 10px;
-	top: 58px;	
+	top: 48px;	
+}
+#header{
+  text-shadow: 3px 3px 3px rgba(150, 150, 150, 0.2);
 }
 #time {
-	position: absolute;
-    font-size:52px; 
-    font-weight:bold;
-    float: left;
-    z-index: 21;
-    top: 0px;
+  position: absolute;
+  font-size:53px; 
+  top: -3px;
+  right: 86px;
 }
-#time_ {
-	position: absolute;
-    font-size:52px; 
-    float: left;
-    z-index: 21;
-    top: -2px;
+#time .sep{
+  position: relative;
+  color: #555;
+  font-size: 40px;
+  display: inline-block;
+  padding: 0 1px 0 0;
+  top: -6px;
+}
+#day, #date{
+  color: #888;
+  right: 10px;
 }
 #day {
-	position: absolute;
-    font-size:22px; 
-    color: #BBB;
-    float: left;
-    z-index: 21;
-    top: 8px;
+  position: absolute;
+  font-size:25px; 
+  top: 4px;
 }
 #date {
 	position: absolute;
-    font-size:22px; 
-    color: #BBB;
-    float: left;
-    z-index: 21;
-    top: 28px;
+  font-size:21px; 
+  top: 27px;
 }
 
 #nav-left {
 	position: absolute;
 	z-index: 11;
 	top: 54px;
+  right: 20px;
 	height:30px;
 }
 
@@ -100,18 +107,4 @@ body {
 	z-index: 11;
 	top: 54px;
 	height:30px;
-}
-#contentFrame{
-  width: 100%;
-  top: 85px;
-  height: 300px;
-  overflow: hidden;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  border: none;
-  -webkit-transform: translateZ(1px);
-}
-#header{
-  z-index: 100;
-  -webkit-transform: translateZ(-1px);
 }

@@ -42,7 +42,6 @@ function initializeContent() {
         applyConfig();
         var distance = 900;
         TweenLite.set($('#body'), {perspective: distance});
-        TweenLite.set($('#header'), {perspective: distance});
         CSSPlugin.defaultTransformPerspective = distance;
     }).error(function(message) {
         console.error('error' + message);
@@ -89,7 +88,7 @@ function updateSlice(step) {
         console.log(slide);
         $("#title").text('['+ (slide+1) + '/' + content.length + '] ' + content[slide][k_name]);
         // show content
-        $('#contentFrame').attr('src', content[slide][k_link]);
+        $('#contentFrame iframe').attr('src', content[slide][k_link]);
         TweenLite.to($('#contentFrame'), 2, {
             transformOrigin:"50& 50%", 
             rotationY:-360,
@@ -124,3 +123,45 @@ function setLoopTimer(time) {
 function showActivity() {
     $("#title").text($("#title").text() + '.');
 }
+
+
+
+function initEventHandlers(){
+  // navigation
+  $("#nav-left").click(function () { 
+      updateSlice(-1);  
+  });
+  $("#nav-right").click(function () { 
+      updateSlice(1);  
+  });
+
+  $(document).keydown(function(e) {
+    if (!e) {
+      e = window.event;
+    }
+    if (e.keyCode == 65 || e.keyCode == 37) { // A or left 
+      updateSlice(-1);
+    } else if (e.keyCode == 68 || e.keyCode == 39) { // D or right 
+      updateSlice(1);
+    }
+  });
+
+  $(window).resize(resizeFrame);    
+}
+
+function resizeFrame() {
+  var w = window.innerWidth-100;
+  var h = window.innerWidth;
+  $('#contentFrame iframe').css({
+    height: $(window).height() - 120,
+    width: $(window).width() - 5
+  });
+}
+
+    $(document).ready(function(){
+        initializeContent();
+        resizeFrame();
+        initEventHandlers()
+    });
+    
+
