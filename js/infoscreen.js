@@ -81,7 +81,8 @@ function updateSlice(step, wait) {
 
     if (src != next_url){
       console.log('loading '+src+' into '+$incoming.attr('id'));
-      $incoming.attr('src', src);
+      $incoming.attr('src','about:blank');
+      setTimeout(function(){ $incoming.attr('src', src); }, 50);
     }
     $incoming.css({
       'left': (step === 1 ? right_landing : left_landing),
@@ -94,7 +95,6 @@ function updateSlice(step, wait) {
     var afterAppear = function(){  
       // show title
       $("#bar .page").text((slide+1) + '/' + content.length);
-      $("#header .title").text(content[slide][k_name]);
       // guess next one for preload
       var next_one = (slide + content.length + 1) % content.length;
       next_url = content[next_one][k_link];
@@ -103,15 +103,21 @@ function updateSlice(step, wait) {
       $('body').scrollLeft(0);
     };
 
-
     setTimeout(function(){
+      // set title
+      $("#header .title").text(content[slide][k_name]);
+
       // transition
-      TweenLite.to($incoming, 0.5, {
+      var ease_time = 0.7;
+      var transition = Strong.easeOut;
+      TweenLite.to($incoming, ease_time, {
         left: '0px',
-        onComplete: afterAppear
+        onComplete: afterAppear,
+        ease: transition
       });
-      TweenLite.to($outgoing, 0.5, {
-        left: (step === 1 ? left_landing : right_landing)
+      TweenLite.to($outgoing, ease_time, {
+        left: (step === 1 ? left_landing : right_landing),
+        ease: transition
       });
 
       // $incoming.animate({
@@ -123,7 +129,7 @@ function updateSlice(step, wait) {
 
       // set loop timer
       setLoopTimer(content[slide][k_time]);
-    }, wait ? 10 : 500);
+    }, wait ? 300 : 10);
   } else {
     alert('No content available.');
   }
