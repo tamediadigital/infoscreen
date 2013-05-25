@@ -13,10 +13,12 @@ var k_name = 'name';
 var k_link = 'link';
 var k_time = 'time';
 var slide = -1;
+var active_frame = 0;
+var next_url;
 
 // timer
 var loopTimerID = null;
-setInterval(showActivity, 5000);  
+
 
 function initializeContent() {
     var ref = parent.location.href;
@@ -39,9 +41,6 @@ function initializeContent() {
                 }
             }
         }
-        var distance = 900;
-        TweenLite.set($('#body'), {perspective: distance});
-        CSSPlugin.defaultTransformPerspective = distance;
     }).error(function(message) {
         console.error('error' + message);
     });
@@ -68,29 +67,66 @@ function initializeContent() {
     });
 }
 
-function updateSlice(step) {
-    if (content.length != 0) {
-        slide = (slide + content.length + step) % content.length;
-        // show title
-        console.log(slide);
-        $("#bar .page").text((slide+1) + '/' + content.length);
-        $("#title").text(content[slide][k_name]);
-        // show content
-        $('#contentFrame iframe').attr('src', content[slide][k_link]);
-        TweenLite.to($('#contentFrame'), 2, {
-            transformOrigin:"50& 50%", 
-            rotationY:-360,
-            onComplete: function(){
-                TweenLite.to($('#contentFrame'), 0, {transformOrigin:"50% 50%", rotationY:-0});
-                console.log('done');
-            }
-        });        
-        // set loop timer
-        setLoopTimer(content[slide][k_time]);
-        
-   } else {
-        alert('No content available.');
+function updateSlice(step, wait) {
+  if (content.length != 0) {
+    var $incoming = $('#frame' + active_frame);
+    var $outgoing = $('#frame' + (active_frame ^ 1));
+    active_frame = active_frame ^ 1;
+    slide = (slide + content.length + step) % content.length;
+
+    // show content
+    var src = content[slide][k_link];
+    var left_landing  = (0 - $(window).width())+'px';
+    var right_landing = $(window).width()+'px';
+
+    if (src != next_url){
+      console.log('loading '+src+' into '+$incoming.attr('id'));
+      $incoming.attr('src', src);
     }
+    $incoming.css({
+      'left': (step === 1 ? right_landing : left_landing),
+    });
+
+    $outgoing.css({
+      'left': 0
+    });
+
+    var afterAppear = function(){  
+      // show title
+      $("#bar .page").text((slide+1) + '/' + content.length);
+      $("#header .title").text(content[slide][k_name]);
+      // guess next one for preload
+      var next_one = (slide + content.length + 1) % content.length;
+      next_url = content[next_one][k_link];
+      $outgoing.attr('src', next_url);
+      console.log('pre-loading '+next_url+' into '+$outgoing.attr('id'));
+      $('body').scrollLeft(0);
+    };
+
+
+    setTimeout(function(){
+      // transition
+      TweenLite.to($incoming, 0.5, {
+        left: '0px',
+        onComplete: afterAppear
+      });
+      TweenLite.to($outgoing, 0.5, {
+        left: (step === 1 ? left_landing : right_landing)
+      });
+
+      // $incoming.animate({
+      //   left: '0px'      
+      // }, 500, 'swing', afterAppear);
+      // $outgoing.animate({
+      //   left: (step === 1 ? left_landing : right_landing)
+      // }, 500, 'swing');
+
+      // set loop timer
+      setLoopTimer(content[slide][k_time]);
+    }, wait ? 10 : 500);
+  } else {
+    alert('No content available.');
+  }
 }
 
 function setLoopTimer(time) {
@@ -105,17 +141,16 @@ function setLoopTimer(time) {
 	}
 	
 	// initiallize new timer
-	loopTimerID = setTimeout( "updateSlice(1)", time*1000);
+	loopTimerID = setTimeout( "updateSlice(1,true)", time*1000);
 }
 
-function showActivity() {
-
+function resetFocus() {
+  $('#bar .nav .focus-grabber').focus().delay(2).blur();
+  $('body').scrollLeft(0);
 }
-
-
 
 function initEventHandlers(){
-  // navigation
+  // button nav
   $("#bar .nav .left").click(function () { 
       updateSlice(-1);  
   });
@@ -123,34 +158,62 @@ function initEventHandlers(){
       updateSlice(1);  
   });
 
+  // keyboard nav
   $(document).keydown(function(e) {
     if (!e) {
       e = window.event;
     }
     if (e.keyCode == 65 || e.keyCode == 37) { // A or left 
+      e.preventDefault();
       updateSlice(-1);
     } else if (e.keyCode == 68 || e.keyCode == 39) { // D or right 
+      e.preventDefault();
       updateSlice(1);
     }
+  });
+
+  // re-claim focus from iframes on load
+  $('#contentFrame iframe').on('load', function(){
+    setTimeout(resetFocus, 500)
   });
 
   $(window).resize(resizeFrame);    
 }
 
+function initViewport(){
+  var distance = 900;
+  TweenLite.set($('#body'), {perspective: distance});
+  CSSPlugin.defaultTransformPerspective = distance;
+  resizeFrame();
+}
+
 function resizeFrame() {
-  var w = window.innerWidth-100;
-  var h = window.innerWidth;
   $('#contentFrame iframe').css({
     height: $(window).height() - 86,
     width: $(window).width()
   });
+  $('body').scrollLeft(0);
+  // $('#container').css({
+  //   height: $(window).height(),
+  //   width: $(window).width()
+  // });
 }
 
-    $(document).ready(function(){
-        updateClock();
-        initializeContent();
-        resizeFrame();
-        initEventHandlers();
-    });
+$(document).ready(function(){
+    updateClock();
+    initializeContent();
+    initViewport();
+    initEventHandlers();
+});
     
 
+// // 3d flip
+//
+// TweenLite.to($('#contentFrame'), 2, {
+//     transformOrigin:"50& 50%", 
+//     rotationY:-360,
+//     onComplete: function(){
+//         TweenLite.to($('#contentFrame'), 0, {transformOrigin:"50% 50%", rotationY:-0});
+//         console.log('done');
+//     }
+// });        

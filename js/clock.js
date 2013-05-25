@@ -15,7 +15,7 @@ function updateClock() {
 
     // date
     $("#datetime .day").text(day_names[now.getDay()]);
-    $("#datetime .date").text(now.getDate() + " / " + (now.getMonth() + 1));
+    $("#datetime .date").text(now.getDate() + "/" + (now.getMonth() + 1));
 
     var $sep = $('#datetime .sep');
     var op = parseInt($sep.css('opacity'));
