@@ -42,7 +42,7 @@ function initializeContent() {
             }
         }
     }).error(function(message) {
-        console.error('error' + message);
+        alert('error' + message);
     });
     
     // load content
@@ -63,7 +63,7 @@ function initializeContent() {
         }
         updateSlice(1);
     }).error(function(message) {
-        console.error('error' + message);
+        alert('error' + message);
     });
 }
 
