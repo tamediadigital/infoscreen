@@ -44,9 +44,9 @@ body {
   z-index: 100;
 }
 #header .title {
-  font-size: 46px; 
+  font-size: 42px; 
   font-weight: 200;
-  padding: 4px 0 0 8px;
+  padding: 4px 0 5px 8px;
   float: left;
   color: #008cca;
 }

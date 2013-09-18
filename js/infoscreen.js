@@ -6,8 +6,8 @@ var config = {
 };
 
 // content
-//var content_key = '0AnrtptTR3KifdG5OVXFxWl9mVHAxYVoybXBTcXU3elE';
-var content_key = '0Av0G-GmOlMZ6dEZaS2JtMTBPOWFtX1VXNnA1R2FCa3c';
+var content_key = '0AnrtptTR3KifdG5OVXFxWl9mVHAxYVoybXBTcXU3elE';
+//var content_key = '0Av0G-GmOlMZ6dEZaS2JtMTBPOWFtX1VXNnA1R2FCa3c';
 var content = [];
 var k_name = 'name';
 var k_link = 'link';
@@ -81,7 +81,7 @@ function updateSlice(step, wait) {
 
     if (src != next_url){
       console.log('loading '+src+' into '+$incoming.attr('id'));
-      $incoming.attr('src','about:blank');
+      //$incoming.attr('src','about:blank');
       setTimeout(function(){ $incoming.attr('src', src); }, 50);
     }
     $incoming.css({
