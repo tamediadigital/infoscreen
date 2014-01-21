@@ -15,10 +15,40 @@ var k_time = 'time';
 var slide = -1;
 var active_frame = 0;
 var next_url;
+var speedup = 0.4;
 
-// timer
-var loopTimerID = null;
+Timer = function(callback, delay) {
+  var timerId, start, remaining = delay;
+  var paused = false;
 
+  this.pause = function() {
+    paused = true;
+    window.clearTimeout(timerId);
+    remaining -= new Date() - start;
+  };
+
+  this.resume = function() {
+    paused = false;
+    start = new Date();
+    timerId = window.setTimeout(callback, remaining);
+  };
+
+  this.seconds_left = function(){
+    if (!paused){
+      return (new Date() - start)/1000;      
+    } else {
+      return (duration - remaining)/1000;
+    }
+    
+  };
+
+  this.duration = function(){
+    return remaining/1000;
+  };
+
+  this.resume();
+};
+var timer;
 
 function initializeContent() {
     var ref = parent.location.href;
@@ -65,6 +95,14 @@ function initializeContent() {
     }).error(function(message) {
         alert('error' + message);
     });
+
+    setInterval(function(){
+      if (timer){
+        var percent = parseInt(timer.seconds_left()/timer.duration()*100);
+        //console.log(percent);
+        $('#bar .timer .fill').height((100-percent)+'%');
+      }
+    }, 500);
 }
 
 function updateSlice(step, wait) {
@@ -73,6 +111,10 @@ function updateSlice(step, wait) {
     var $outgoing = $('#frame' + (active_frame ^ 1));
     active_frame = active_frame ^ 1;
     slide = (slide + content.length + step) % content.length;
+
+    // reset pause button
+    $("#bar .nav .pause i").attr('class','icon-play').removeClass('pulse');
+
 
     // show content
     var src = content[slide][k_link];
@@ -128,6 +170,7 @@ function updateSlice(step, wait) {
       // }, 500, 'swing');
 
       // set loop timer
+      
       setLoopTimer(content[slide][k_time]);
     }, wait ? 300 : 10);
   } else {
@@ -135,19 +178,15 @@ function updateSlice(step, wait) {
   }
 }
 
+function adjustedTime(t){
+  return t*1000*speedup;
+}
+
 function setLoopTimer(time) {
-    // clear previous timer
-	if (loopTimerID != null) {
-		clearTimeout(loopTimerID);
-		loopTimerID = null;
-	}
-	// sanity check: mininum timeout 10s
-	if (time == null) {
-	    time = 10;
-	}
-	
-	// initiallize new timer
-	loopTimerID = setTimeout( "updateSlice(1,true)", time*1000);
+	if (time == null) { time = 1;	}
+	// initialize new timer
+  if (timer){ timer.pause(); }
+  timer = new Timer(function(){ updateSlice(1,true) }, time*1000*speedup); 
 }
 
 function resetFocus() {
@@ -162,12 +201,26 @@ function initEventHandlers(){
   });
   $("#bar .nav .right").click(function () { 
       updateSlice(1);  
+  });  
+  $("#bar .nav .pause").click(function () { 
+    var icon = $('i',this);
+    if (icon.hasClass('icon-play')) {
+        timer.pause();
+        icon.attr('class','icon-pause').addClass('pulse');
+    } else { 
+      timer.resume();
+      icon.attr('class','icon-play').removeClass('pulse'); 
+    }
   });
 
   // keyboard nav
   $(document).keydown(function(e) {
     if (!e) {
       e = window.event;
+    }
+    if (e.keyCode == 32) { // pause
+      e.preventDefault();
+      $("#bar .nav .pause").trigger('click');
     }
     if (e.keyCode == 65 || e.keyCode == 37) { // A or left 
       e.preventDefault();
