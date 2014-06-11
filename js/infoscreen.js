@@ -67,14 +67,22 @@ function initializeContent() {
                 var value = e['gsx$value']['$t'];
                 if (config.hasOwnProperty(property)) {
                     console.info(property + ':' + value);
-                    config[property] = value;
+                    config[property] = $.parseJSON(value.toLowerCase());
                 }
             }
         }
+		// set configs
+		if (!config['showNavigation']) {
+			$('.nav').hide();
+		}
+		if (!config['showTime']) {
+			$('#datetime').hide();
+		}
     }).error(function(message) {
         alert('error' + message);
     });
     
+
     // load content
     url = 'https://spreadsheets.google.com/feeds/list/' + content_key + '/od6/public/values?alt=json-in-script&callback=?';
     jQuery.getJSON(url).success(function(data) {
