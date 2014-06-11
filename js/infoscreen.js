@@ -15,7 +15,6 @@ var k_time = 'time';
 var slide = -1;
 var active_frame = 0;
 var next_url;
-var speedup = 0.4;
 
 Timer = function(callback, delay) {
   var timerId, start, remaining = delay;
@@ -123,7 +122,6 @@ function updateSlice(step, wait) {
     // reset pause button
     $("#bar .nav .pause i").attr('class','icon-play').removeClass('pulse');
 
-
     // show content
     var src = content[slide][k_link];
     var left_landing  = (0 - $(window).width())+'px';
@@ -170,15 +168,6 @@ function updateSlice(step, wait) {
         ease: transition
       });
 
-      // $incoming.animate({
-      //   left: '0px'      
-      // }, 500, 'swing', afterAppear);
-      // $outgoing.animate({
-      //   left: (step === 1 ? left_landing : right_landing)
-      // }, 500, 'swing');
-
-      // set loop timer
-      
       setLoopTimer(content[slide][k_time]);
     }, wait ? 300 : 10);
   } else {
@@ -186,15 +175,11 @@ function updateSlice(step, wait) {
   }
 }
 
-function adjustedTime(t){
-  return t*1000*speedup;
-}
-
 function setLoopTimer(time) {
 	if (time == null) { time = 1;	}
 	// initialize new timer
   if (timer){ timer.pause(); }
-  timer = new Timer(function(){ updateSlice(1,true) }, time*1000*speedup); 
+  timer = new Timer(function(){ updateSlice(1,true) }, time*1000); 
 }
 
 function resetFocus() {
