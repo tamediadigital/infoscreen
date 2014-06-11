@@ -157,8 +157,8 @@ function updateSlice(step, wait) {
 					next_url = content[next_one][k_link];
 					$outgoing.attr('src', next_url);
 					console.log('pre-loading ' + next_url + ' into ' + $outgoing.attr('id'));
-					$('body').scrollLeft(0);
 				}
+				$('body').scrollLeft(0);
 			};
 
 		setTimeout(function() {
